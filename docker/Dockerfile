@@ -1,0 +1,238 @@
+#FROM nvcr.io/nvidia/tensorrt:19.03-py3
+# FROM nvcr.io/nvidia/pytorch:19.07-py3
+# FROM nvcr.io/nvidia/pytorch:18.12-py3
+FROM nvcr.io/nvidia/pytorch:19.02-py3
+
+
+RUN apt-get update &&\
+    apt-get install -y sudo git bash
+
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
+ENV PYTHONPATH=/opt/conda/lib/python3.6/site-packages/:$PYTHONPATH
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
+
+RUN apt-get update \
+ && apt-get install -y \
+    build-essential git gfortran \
+    cmake curl wget unzip libreadline-dev libjpeg-dev libpng-dev ncurses-dev \
+    imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz
+
+RUN ls -la /opt/conda/lib
+
+RUN find / -name conda
+
+RUN conda install -c anaconda python=3.6
+
+RUN find / -name conda
+
+# PyTorch
+# RUN pip install -U torch torchvision
+# RUN conda install -y pytorch torchvision pandas scikit-image cython cudatoolkit=10.0 -c pytorch
+RUN conda install -y   pandas scikit-image cython -c pytorch
+RUN pip install -U  spacy
+
+# Basic images processing
+RUN pip install -U imageio 
+
+#OpenCV CUDA
+ENV OPENCV_VERSION 4.1.0
+# ENV OPENCV_VERSION 4.1.0
+RUN apt-get install yasm
+
+RUN apt-get update && apt-get -y install autoconf automake build-essential libass-dev libtool  pkg-config texinfo zlib1g-dev cmake mercurial libjpeg-dev libpng-dev libtiff-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev  libxvidcore-dev libx264-dev libx265-dev libnuma-dev libatlas-base-dev libopus-dev libvpx-dev gfortran unzip
+# RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+# RUN cd nv-codec-headers && make && make install
+
+
+WORKDIR "/root/"
+
+# RUN conda uninstall -y torch torchvision
+RUN conda uninstall -y libtiff
+
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/python3.6
+# ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
+
+
+# https://qiita.com/nmatsui/items/1f6daee53669976f9bd0
+# RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && unzip opencv.zip && mv opencv-$OPENCV_VERSION opencv
+# RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip && unzip opencv_contrib.zip && mv opencv_contrib-$OPENCV_VERSION opencv_contrib
+
+
+# RUN cd opencv && mkdir build && cd build && cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#  -D CMAKE_INSTALL_PREFIX=/usr/local \ 
+#  -D INSTALL_PYTHON_EXAMPLES=OFF \
+#  -D ENABLE_PRECOMPILED_HEADERS=OFF \
+#  -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 \
+#  -D BUILD_opencv_python3=ON \
+#  -D INSTALL_C_EXAMPLES=OFF \
+#  -D OPENCV_ENABLE_NONFREE=ON \
+#  -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib/modules \
+#  -D OPENCV_SKIP_PYTHON_LOADER=ON \
+#  -D PYTHON_LIBRARY=/opt/conda/lib/python3.6 \
+#  -D PYTHON_EXECUTABLE=/opt/conda/bin/python3 \  
+#  -D WITH_CUDA=ON \
+#  -D ENABLE_FAST_MATH=1 \
+#  -D CUDA_FAST_MATH=1 \
+#  -D WITH_CUBLAS=1 \
+#  -D WITH_V4L=ON \
+#  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.0 \
+#  -D WITH_FFMPEG=ON \
+#  -D BUILD_EXAMPLES=OFF ..
+
+WORKDIR "/root/"
+# ABI=0 is really important
+
+RUN conda config --add channels conda-forge
+#RUN conda install -c conda-forge 
+# RUN conda install opencv
+RUN conda install -c conda-forge ffmpeg x264
+RUN conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
+RUN conda install -c conda-forge opencv
+
+# RUN cd /root/opencv
+# WORKDIR "/root/opencv/"
+
+# # -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0
+
+# RUN mkdir build && cd build && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1 \
+#  -D CMAKE_INSTALL_PREFIX=/usr/local \   
+#  -D BUILD_opencv_python3=ON \ 
+#  -D OPENCV_ENABLE_NONFREE=ON \
+#  -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib/modules \
+#  -D PYTHON_LIBRARY=/opt/conda/lib/python3.6 \
+#  -D PYTHON_EXECUTABLE=/opt/conda/bin/python3 \   
+#  -D WITH_V4L=ON \ 
+#  -D BUILD_EXAMPLES=OFF \
+#  -D WITH_TBB=ON \
+#  -D WITH_CUDA=OFF \
+#  -D WITH_CUBLAS=OFF \
+#  -D BUILD_NEW_PYTHON_SUPPORT=ON \
+#  -D WITH_V4L=ON \
+#  -D INSTALL_C_EXAMPLES=OFF \
+#  -D ENABLE_FAST_MATH=1 \
+#  -D WITH_CUBLAS=1 \
+#  -D WITH_FFMPEG=ON \
+#  -D INSTALL_PYTHON_EXAMPLES=OFF ..
+
+# WORKDIR "/root/opencv/"
+# RUN cd /root/opencv/build && \
+# make -j8 && \
+# make install && \
+# ldconfig
+
+# WORKDIR "/root/"
+# RUN cd /root/opencv/build/modules/python3 && make && make install
+# RUN ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so /opt/conda/lib/python3.6/site-packages/cv2.so
+# RUN ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so
+
+# RUN ldconfig
+
+
+WORKDIR "/root/"
+# Jupyter
+RUN pip --no-cache-dir install pandas jupyter ipywidgets sklearn matplotlib  ipython  ipykernel
+
+# Set working dir
+RUN mkdir -p /root/.jupyter/
+
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+RUN python3 -m pip install ipykernel
+RUN python3 -m ipykernel install --user
+RUN python3 -m ipykernel.kernelspec
+RUN jupyter nbextension enable --py widgetsnbextension
+RUN jupyter notebook --generate-config
+COPY jupyter_notebook_config.py /root/.jupyter/
+COPY run_jupyter.sh /root/
+COPY interns.sh /root/
+
+WORKDIR "/root/"
+RUN chmod +x run_jupyter.sh
+RUN chmod +x interns.sh
+
+# Visualization
+RUN pip install -U graphviz hiddenlayer nvidia-ml-py3 seaborn
+
+
+# Augmentation and preprocessing
+RUN pip install -U albumentations
+# RUN pip install git+https://github.com/pytorch/contrib.git
+RUN pip install -U texttable
+
+RUN pip install -U psutil
+
+# Apex
+RUN pip install -U pip
+# RUN git clone https://github.com/NVIDIA/apex apex_build
+# RUN cd apex_build && pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" .
+
+RUN pip install pysoundfile librosa  sonopy editdistance sentencepiece
+RUN pip install easydict Cython h5py lmdb mahotas pandas requests bs4 matplotlib lxml
+RUN pip install youtube-dl==2019.4.17  bcolz graphviz imutils
+
+RUN pip install -U pillow #-i https://pypi.tuna.tsinghua.edu.cn/simple/
+RUN pip install flask_socketio eventlet 
+ENV NO_SQLITE=1
+RUN pip install pretrainedmodels bottle paste flask sanic Sanic-Cors
+RUN pip install sklearn_pandas isoweek pandas_summary  
+RUN pip install flasgger flask-restplus Flask-SQLAlchemy rstr jsonpickle flask_dropzone flask_cors mtcnn pycocotools  pytesseract gtts imutils
+RUN pip install SQLAlchemy flask_sqlalchemy shapely
+
+ENV NVIDIA_VISIBLE_DEVICES all
+
+RUN apt-get update \
+    && apt-get install -y openssh-server xauth \
+    && mkdir /var/run/sshd \
+    && mkdir /root/.ssh \
+    && chmod 700 /root/.ssh \
+    && ssh-keygen -A \
+    && sed -i "s/^.*ClientAliveInterval.*$/ClientAliveInterval 120/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*ClientAliveCountMax.*$/ClientAliveCountMax 720/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*PasswordAuthentication.*$/PasswordAuthentication no/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*X11Forwarding.*$/X11Forwarding yes/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*X11UseLocalhost.*$/X11UseLocalhost no/" /etc/ssh/sshd_config \
+    && grep "^X11UseLocalhost" /etc/ssh/sshd_config || echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+
+
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArnpCnkWhoQkibcsZpoBgPhObtiEZC4CFRO8UcymP4xCRb5gd2J6053jmtAbdDtDMrARixl9b1SShmWkwlZ681IiTFIdCApqSOuUDC55fKmncSKreX7kRmBFsCgHk2fXXsYxQJbyEk8mWHAN+ECqUr0/NHYTPfXOR0YdxCxVAyxJTCeOdl97D0IRrABTGcpTlLnaQMcLZQsnaHXbGWJW1ljWkmy2WzeYfTiceYqsq252tJadSDF6Mp7g50GnQRdWaedXkNZzpq9d0JBYdIh98wjWcQKaV4FTVdItaUVMKovFdgnhyI84T3LWlUxQ1uv2FglklPb0o4mTrWg7GkHCObQ== shlomo" >> /root/.ssh/authorized_keys
+
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwrzCb3xeXlyFvVL5W6NeJw4WfyI3MwbxrlXIz+tVXPOSRX4cpht/R3gMFOpa1KTvJUM089/S92DavIYWETInIQlrdgDrVtxgvt0bsoWPq0cW/6Sj7ntazSctP0fQ1UeKrkUkj/Ow0iTZGiwuZosapARFb9cjO5XXgcYDX1orYRCBaA4p0/7rLLWwvRp65id4caW+CvDmKDvJulUH34ZPlRcU37q37DIHEeyVtfVCmVEHmT/mERpcxbSnuEi3v3ks2bzVqNFm/snba+6vvy4mKW3MG/6jYTmHcbBt3YAXNOtIDNe2qogtlCPjdiX26mcK0/d/3qEi3fM6rxZplN9eBw== root" >> /root/.ssh/authorized_keys
+
+RUN echo 'ldconfig'  >> /root/.bashrc
+# RUN source /root/.bashrc
+
+RUN echo "export PATH=$PATH" >> /etc/profile && \
+    echo "ldconfig" >> /etc/profile
+
+RUN pip install path.py
+
+WORKDIR /root/
+
+# install TorchLib C++ 
+#RUN wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
+#RUN unzip libtorch-shared-with-deps-latest.zip
+#RUN mv /root/libtorch /root/libtorch_cpu 
+#RUN rm libtorch-shared-with-deps-latest.zip
+COPY  libtorch-cxx11-abi-shared-with-deps-1.2.0.zip /root/
+
+RUN unzip /root/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
+#RUN mv /root/libtorch /root/libtorch_gpu 
+#RUN rm libtorch-shared-with-deps-latest.zip
+RUN pip install tornado==5.1.1
+
+RUN ldconfig
+
+RUN pip install tensorboardX tensorflow-gpu==1.13.1 keras tqdm sklearn pandas scipy flask --disable-pip-version-check
+RUN pip install pycrayon ww tensorboard_logger imgaug sacred==0.7.4 pymongo
+
+RUN apt-get install -y software-properties-common
+RUN pip install sacredboard visdom-observer pytorch-utils git+https://github.com/rtqichen/torchdiffeq pytorchcv
+
+EXPOSE 6006 3838 8787 8888 8786 9786 8788 5432 8000 7800 9999 7842 22 3122 7847 7848 8097 27017
+
+# RUN conda install xeus-cling -c QuantStack -c conda-forge
+
+# Version tag
+ENV DEEPONCOLOGY_IMAGE_TAG 19.08.1
+
