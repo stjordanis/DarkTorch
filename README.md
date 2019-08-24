@@ -1,6 +1,6 @@
 # DarkTorch
 
-A docker for pytorch C++ frontend and OpenCV, trying to get cv::imread() to work. 
+A docker for pytorch C++ frontend and OpenCV, trying to get `cv::imread()` to work. 
 
 ## What problem am I trying to resolve:
 Libtorch binaries can be are build with _GLIBCXX_USE_CXX11_ABI = 0 which is incompatible with OpenCV.  
