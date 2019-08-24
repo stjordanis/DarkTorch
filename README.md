@@ -1,7 +1,7 @@
 # DarkTorch
 
 
-![darktorch logo](darktorch.jpg)
+![darktorch logo](darktorch-logo.jpg)
 
 # Introduction
 
