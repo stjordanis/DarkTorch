@@ -1,8 +1,9 @@
 # DarkTorch
 
-## Introduction
 
 ![darktorch logo](darktorch.jpg)
+
+# Introduction
 
 This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
 
