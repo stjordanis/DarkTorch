@@ -6,6 +6,7 @@
 # Introduction
 
 This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
+The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
 
 This projects makes use of several technologies:
 - [Docker](https://www.docker.com/): for bundling all the dependencies of our program and for easier deployment.
