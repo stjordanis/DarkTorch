@@ -1,9 +1,9 @@
 # DarkTorch
-
-
-![darktorch logo](darktorch-logo.jpg)
+A low-latency deep learning inference server using pytorch C++ frontend.
+![resnet34](resnet34.gif)
 
 # Introduction
+![darktorch logo](darktorch-logo.jpg)
 
 This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
 The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
