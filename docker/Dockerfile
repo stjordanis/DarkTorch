@@ -195,9 +195,9 @@ RUN apt-get update \
     && grep "^X11UseLocalhost" /etc/ssh/sshd_config || echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 
-RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArnpCnkWhoQkibcsZpoBgPhObtiEZC4CFRO8UcymP4xCRb5gd2J6053jmtAbdDtDMrARixl9b1SShmWkwlZ681IiTFIdCApqSOuUDC55fKmncSKreX7kRmBFsCgHk2fXXsYxQJbyEk8mWHAN+ECqUr0/NHYTPfXOR0YdxCxVAyxJTCeOdl97D0IRrABTGcpTlLnaQMcLZQsnaHXbGWJW1ljWkmy2WzeYfTiceYqsq252tJadSDF6Mp7g50GnQRdWaedXkNZzpq9d0JBYdIh98wjWcQKaV4FTVdItaUVMKovFdgnhyI84T3LWlUxQ1uv2FglklPb0o4mTrWg7GkHCObQ== shlomo" >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa == shlomo" >> /root/.ssh/authorized_keys
 
-RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwrzCb3xeXlyFvVL5W6NeJw4WfyI3MwbxrlXIz+tVXPOSRX4cpht/R3gMFOpa1KTvJUM089/S92DavIYWETInIQlrdgDrVtxgvt0bsoWPq0cW/6Sj7ntazSctP0fQ1UeKrkUkj/Ow0iTZGiwuZosapARFb9cjO5XXgcYDX1orYRCBaA4p0/7rLLWwvRp65id4caW+CvDmKDvJulUH34ZPlRcU37q37DIHEeyVtfVCmVEHmT/mERpcxbSnuEi3v3ks2bzVqNFm/snba+6vvy4mKW3MG/6jYTmHcbBt3YAXNOtIDNe2qogtlCPjdiX26mcK0/d/3qEi3fM6rxZplN9eBw== root" >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa == root" >> /root/.ssh/authorized_keys
 
 RUN echo 'ldconfig'  >> /root/.bashrc
 # RUN source /root/.bashrc
