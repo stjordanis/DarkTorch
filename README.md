@@ -24,3 +24,8 @@ Download here (cxx11 ABI):
 https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
 
 But whatever i do, I still can not get cv::imread() to work. 
+
+
+## Possibile solutions:
+conda install --channel https://conda.anaconda.org/menpo opencv3
+3.1.0
