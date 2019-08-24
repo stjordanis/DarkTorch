@@ -3,7 +3,7 @@
 A docker for pytorch C++ frontend and OpenCV, trying to get cv::imread() to work. 
 
 ## What problem am I trying to resolve:
-Libtorch binaries can be installed are build with _GLIBCXX_USE_CXX11_ABI = 0 which make it incompatible for OpenCV.  
+Libtorch binaries can be are build with _GLIBCXX_USE_CXX11_ABI = 0 which is incompatible with OpenCV.  
 Even when compiled with _GLIBCXX_USE_CXX11_ABI = 1, cv::imread() does not work. 
 
 https://github.com/pytorch/pytorch/issues/17492
