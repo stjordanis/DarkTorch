@@ -28,7 +28,6 @@ https://download.pytorch.org/libtorch/cu100/libtorch-shared-with-deps-1.2.0.zip
 Download here (cxx11 ABI, compiled with _GLIBCXX_USE_CXX11_ABI = 1): 
 https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
 
-- [TensorRT](https://developer.nvidia.com/tensorrt): NVIDIA's high-performance inference engine.
 - [OpenCV](http://opencv.org/): to have a simple C++ API for GPU image processing.
 
 # Building
