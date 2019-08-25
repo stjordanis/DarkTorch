@@ -56,8 +56,38 @@ Execute the following command and wait a few seconds for the initialization of t
 ```
 ```
 
+## Tested CNN models
+
+- ResNet9
+- ResNet18
+- ResNet50
+- ResNet101
+
+## Performance:
+
+<table><tbody>
+    <th valign="bottom">Architecture</th>
+    <th valign="bottom">Threads</th>
+    <th valign="bottom">Batch Size</th>    
+    <th valign="bottom">Inference Speed(fps)</th>
+    <tr>
+        <td rowspan="2">ResNet34</td>
+        <td>1</td><td>1</td><td>200</td>        
+    </tr>    
+   
+</tbody></table>
+
+The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
+
+## Environment
+The code is developed under the following configurations.
+- Hardware: 1 GPU for testing 
+- Software: Ubuntu 16.04.3 LTS, ***CUDA>=10.0, Python>=3.6, PyTorch>=1.2.0***
+- Dependencies: refer to the docker file
+
+
 ## Benchmarking performance
-We can benchmark the performance of our classification server using any tool that can generate HTTP load. We included a Dockerfile
+We can benchmark the performance of our inference server using any tool that can generate HTTP load. We included a Dockerfile
 for a benchmarking client using [rakyll/hey](https://github.com/rakyll/hey):
 ```
 ```
