@@ -43,7 +43,6 @@ https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-
 The command might take a while to execute:
 ```
 ```
-To speedup the build you can modify [this line](https://github.com/NVIDIA/gpu-rest-engine/blob/master/Dockerfile.caffe_server#L5) to only build for the GPU architecture that you need.
 
 
 # Testing
