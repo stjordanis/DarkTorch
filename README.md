@@ -23,6 +23,14 @@ The DarkTorch service is a C++ application running a HTTP server with a REST API
 
 ## Technologies
 This projects makes use of several technologies:
+- C++11 welll ... 
+```cpp
+#include <chrono>
+#include <stdio.h>
+#include <torch/torch.h>
+#include <torch/script.h>
+etc etc
+```
 - [Docker](https://www.docker.com/): for bundling all the dependencies of our program and for easier deployment. 
 We inherit from:
 ```
