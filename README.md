@@ -113,10 +113,12 @@ Execute the following command and wait a few seconds for the initialization of t
     <th valign="bottom">Inference Speed(fps)</th>
     <tr>
         <td rowspan="2">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
-    </tr>
-    <tr>
-        <td rowspan="2">BaiduNet8 https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8</td><td>1</td><td>1</td><td></td>        
-    </tr>        
+    </tr>  
+ 
+ <tr>
+        <td rowspan="2">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
+    </tr>  
+    
 </tbody></table>
 
 The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
