@@ -1,5 +1,5 @@
-# DarkTorch
-A low-latency deep learning inference server using pytorch C++ frontend.
+# DarkTorch (Work In Progress)
+A low-latency deep learning inference server using pytorch C++ frontend. DarkTorch is written in C++11. 
 
 (A demo of running inference on a PyTorch Resnet34 CNN model using a tqdm like callback)
 ![resnet34](resnet34.gif)
@@ -10,11 +10,16 @@ A low-latency deep learning inference server using pytorch C++ frontend.
 This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
 The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
 
+**Table of contents**
+
+  * [Technologies](#Technologies)  
+  * [Building](#Building)  
+  * [Testing](#Testing)     
+  * [Contributors](#contributors)
+
+
 `torch::jit::script::Module module = torch::jit::load(s_model_name, torch::kCUDA);`
 
-## Author
-Shlomo Kashani, Head of AI at DeepOncology AI, 
-Kaggle Expert, Founder of Tel-Aviv Deep Learning Bootcamp: shlomo@deeponcology.ai
 
 ## Technologies
 This projects makes use of several technologies:
@@ -128,12 +133,15 @@ for a benchmarking client using [rakyll/hey](https://github.com/rakyll/hey):
 ```
 ```
 
-
 ## Contributing
 
 Feel free to report issues during build or execution. We also welcome suggestions to improve the performance of this application.
 
-### Citation
+## Author
+Shlomo Kashani, Head of AI at DeepOncology AI, 
+Kaggle Expert, Founder of Tel-Aviv Deep Learning Bootcamp: shlomo@deeponcology.ai
+
+## Citation
 
 If you find the code or trained models useful, please consider citing:
 
