@@ -112,11 +112,11 @@ Execute the following command and wait a few seconds for the initialization of t
     <th valign="bottom">Batch Size</th>    
     <th valign="bottom">Inference Speed(fps)</th>
     <tr>
-        <td rowspan="2">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
+        <td rowspan="1">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
     </tr>  
  
  <tr>
-        <td rowspan="2">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
+        <td rowspan="1">ResNet9 https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
     </tr>  
     
 </tbody></table>
