@@ -96,3 +96,17 @@ for a benchmarking client using [rakyll/hey](https://github.com/rakyll/hey):
 ## Contributing
 
 Feel free to report issues during build or execution. We also welcome suggestions to improve the performance of this application.
+
+### Citation
+
+If you find the code or trained models useful, please consider citing:
+
+```
+@misc{DarkTorch2019,
+  author={Kashani, Shlomo},
+  title={DarkTorch2019},
+  howpublished={\url{https://github.com/QuantScientist/DarkTorch/}},
+  year={2019}
+}
+```
+
