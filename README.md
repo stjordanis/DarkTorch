@@ -1,7 +1,7 @@
 # DarkTorch
 A low-latency deep learning inference server using pytorch C++ frontend.
 
-(Demo of running inference on a Resnet34 CNN model using a tqdm like callback)
+(A demo of running inference on a PyTorch Resnet34 CNN model using a tqdm like callback)
 ![resnet34](resnet34.gif)
 
 # Introduction
