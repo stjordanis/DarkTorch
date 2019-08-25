@@ -118,12 +118,7 @@ Execute the following command and wait a few seconds for the initialization of t
     <tr>
         <td rowspan="2">BaiduNet8 https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8</td>
         <td>1</td><td>1</td><td>600</td>        
-    </tr> 
-    <tr>
-        <td rowspan="2">ResNet34 </td>
-        <td>1</td><td>1</td><td>200</td>        
-    </tr>    
-   
+    </tr>        
 </tbody></table>
 
 The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
