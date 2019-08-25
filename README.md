@@ -18,17 +18,47 @@ Kaggle Expert, Founder of Tel-Aviv Deep Learning Bootcamp: shlomo@deeponcology.a
 
 ## Technologies
 This projects makes use of several technologies:
-- [Docker](https://www.docker.com/): for bundling all the dependencies of our program and for easier deployment.
-- [Libtorch](https://github.com/BVLC/caffe): because it has good performance and a simple C++ API.
-
-Torch has now two versions:
-Download here (Pre-cxx11 ABI): 
+- [Docker](https://www.docker.com/): for bundling all the dependencies of our program and for easier deployment. 
+We inherit from:
+```
+FROM nvcr.io/nvidia/pytorch:19.02-py3
+RUN apt-get update &&\
+    apt-get install -y sudo git bash
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
+ENV PYTHONPATH=/opt/conda/lib/python3.6/site-packages/:$PYTHONPATH
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
+...
+...
+```
+The whole docker file is availabe here:
+- [Libtorch](https://pytorch.org/): because it has good performance and a simple C++ API. Torch has now two versions:
+(Pre-cxx11 ABI): 
 https://download.pytorch.org/libtorch/cu100/libtorch-shared-with-deps-1.2.0.zip
 
-Download here (cxx11 ABI, compiled with _GLIBCXX_USE_CXX11_ABI = 1): 
+(cxx11 ABI, compiled with _GLIBCXX_USE_CXX11_ABI = 1): 
 https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
 
 - [OpenCV](http://opencv.org/): to have a simple C++ API for GPU image processing.
+- [CMake] (https://cmake.org/): refer to the sample C++ applications. Sample `CMakeLists.txt` file is available here:
+```
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+
+project(FeatureEx VERSION 1.2.3.4 LANGUAGES CXX)
+set(PROJECT_NAME FeatureEx)
+
+if (NOT DEFINED CMAKE_CXX_STANDARD)
+    SET(CMAKE_CXX_STANDARD 11)
+    SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_VERBOSE_MAKEFILE ON)
+endif ()
+if (CMAKE_CXX_STANDARD LESS 11)
+    message(FATAL_ERROR "CMAKE_CXX_STANDARD is less than 11.")
+endif ()
+
+set(CMAKE_BUILD_TYPE Release)
+set(CXX_RELEASE_FLAGS = -O3 -march=native)
+
+```
 
 # Building
 
@@ -41,10 +71,16 @@ https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-
 ## Build command
 The command might take a while to execute:
 ```
+sudo docker build -t  cuda10-trt cuda10-trt
 ```
 
-
 # Testing
+
+## Start the docker container
+```
+sudo nvidia-docker run -it --shm-size=4g --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -v /tmp/.X11-unix:/tmp/.X11-unix:rw -p 8097:8097  -p 3122:22 -p 7842:7842 -p 8787:8787 -p 8786:8786 -p 8788:8788 -p 8888:8888 -p 5000:5000 -v ~/dev/:/root/sharedfolder -v ~/dev/.torch/models/:/root/.cache/torch/checkpoints/ cuda10-trt  bash
+```
+We assume that the PyTorch models are mapped externally to docker via the `-v` command and reside here: `~/dev/.torch/models/`. You can ammend that to reflect teh settings in your environment. 
 
 ## Starting the server
 Execute the following command and wait a few seconds for the initialization of the classifiers:
