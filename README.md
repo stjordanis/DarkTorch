@@ -45,7 +45,7 @@ https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-
 
 - [OpenCV](http://opencv.org/): to have a simple C++ API for GPU image processing.
 - [CMake] (https://cmake.org/): refer to the sample C++ applications. Sample `CMakeLists.txt` file is available here:
-```
+```cpp
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(FeatureEx VERSION 1.2.3.4 LANGUAGES CXX)
@@ -75,14 +75,14 @@ set(CXX_RELEASE_FLAGS = -O3 -march=native)
 
 ## Build command
 The command might take a while to execute:
-```
+```bash
 sudo docker build -t  cuda10-trt cuda10-trt
 ```
 
 # Testing
 
 ## Start the docker container
-```
+```bash
 sudo nvidia-docker run -it --shm-size=4g --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -v /tmp/.X11-unix:/tmp/.X11-unix:rw -p 8097:8097  -p 3122:22 -p 7842:7842 -p 8787:8787 -p 8786:8786 -p 8788:8788 -p 8888:8888 -p 5000:5000 -v ~/dev/:/root/sharedfolder -v ~/dev/.torch/models/:/root/.cache/torch/checkpoints/ cuda10-trt  bash
 ```
 We assume that the PyTorch models are mapped externally to docker via the `-v` command and reside here: `~/dev/.torch/models/`. You can ammend that to reflect teh settings in your environment. 
