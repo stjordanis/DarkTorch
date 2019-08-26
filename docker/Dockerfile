@@ -53,33 +53,6 @@ RUN conda uninstall -y libtiff
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/python3.6
 # ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
 
-
-# https://qiita.com/nmatsui/items/1f6daee53669976f9bd0
-# RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && unzip opencv.zip && mv opencv-$OPENCV_VERSION opencv
-# RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip && unzip opencv_contrib.zip && mv opencv_contrib-$OPENCV_VERSION opencv_contrib
-
-
-# RUN cd opencv && mkdir build && cd build && cmake -D CMAKE_BUILD_TYPE=RELEASE \
-#  -D CMAKE_INSTALL_PREFIX=/usr/local \ 
-#  -D INSTALL_PYTHON_EXAMPLES=OFF \
-#  -D ENABLE_PRECOMPILED_HEADERS=OFF \
-#  -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 \
-#  -D BUILD_opencv_python3=ON \
-#  -D INSTALL_C_EXAMPLES=OFF \
-#  -D OPENCV_ENABLE_NONFREE=ON \
-#  -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib/modules \
-#  -D OPENCV_SKIP_PYTHON_LOADER=ON \
-#  -D PYTHON_LIBRARY=/opt/conda/lib/python3.6 \
-#  -D PYTHON_EXECUTABLE=/opt/conda/bin/python3 \  
-#  -D WITH_CUDA=ON \
-#  -D ENABLE_FAST_MATH=1 \
-#  -D CUDA_FAST_MATH=1 \
-#  -D WITH_CUBLAS=1 \
-#  -D WITH_V4L=ON \
-#  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.0 \
-#  -D WITH_FFMPEG=ON \
-#  -D BUILD_EXAMPLES=OFF ..
-
 WORKDIR "/root/"
 # ABI=0 is really important
 
@@ -94,40 +67,6 @@ RUN conda install -c conda-forge opencv
 # WORKDIR "/root/opencv/"
 
 # # -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0
-
-# RUN mkdir build && cd build && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1 \
-#  -D CMAKE_INSTALL_PREFIX=/usr/local \   
-#  -D BUILD_opencv_python3=ON \ 
-#  -D OPENCV_ENABLE_NONFREE=ON \
-#  -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib/modules \
-#  -D PYTHON_LIBRARY=/opt/conda/lib/python3.6 \
-#  -D PYTHON_EXECUTABLE=/opt/conda/bin/python3 \   
-#  -D WITH_V4L=ON \ 
-#  -D BUILD_EXAMPLES=OFF \
-#  -D WITH_TBB=ON \
-#  -D WITH_CUDA=OFF \
-#  -D WITH_CUBLAS=OFF \
-#  -D BUILD_NEW_PYTHON_SUPPORT=ON \
-#  -D WITH_V4L=ON \
-#  -D INSTALL_C_EXAMPLES=OFF \
-#  -D ENABLE_FAST_MATH=1 \
-#  -D WITH_CUBLAS=1 \
-#  -D WITH_FFMPEG=ON \
-#  -D INSTALL_PYTHON_EXAMPLES=OFF ..
-
-# WORKDIR "/root/opencv/"
-# RUN cd /root/opencv/build && \
-# make -j8 && \
-# make install && \
-# ldconfig
-
-# WORKDIR "/root/"
-# RUN cd /root/opencv/build/modules/python3 && make && make install
-# RUN ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so /opt/conda/lib/python3.6/site-packages/cv2.so
-# RUN ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so
-
-# RUN ldconfig
-
 
 WORKDIR "/root/"
 # Jupyter
@@ -149,7 +88,6 @@ COPY interns.sh /root/
 
 WORKDIR "/root/"
 RUN chmod +x run_jupyter.sh
-RUN chmod +x interns.sh
 
 # Visualization
 RUN pip install -U graphviz hiddenlayer nvidia-ml-py3 seaborn
@@ -210,12 +148,8 @@ RUN pip install path.py
 WORKDIR /root/
 
 # install TorchLib C++ 
-#RUN wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
-#RUN unzip libtorch-shared-with-deps-latest.zip
-#RUN mv /root/libtorch /root/libtorch_cpu 
-#RUN rm libtorch-shared-with-deps-latest.zip
-COPY  libtorch-cxx11-abi-shared-with-deps-1.2.0.zip /root/
-
+RUN wget https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
+#COPY  libtorch-cxx11-abi-shared-with-deps-1.2.0.zip /root/
 RUN unzip /root/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
 #RUN mv /root/libtorch /root/libtorch_gpu 
 #RUN rm libtorch-shared-with-deps-latest.zip
