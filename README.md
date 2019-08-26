@@ -167,3 +167,14 @@ If you find the code or trained models useful, please consider citing:
 }
 ```
 
+#References 
+- https://www.jianshu.com/p/6fe9214431c6
+- https://github.com/lsrock1/maskrcnn_benchmark.cpp
+- https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Training-BaiduNet9
+- https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8
+- https://github.com/BIGBALLON/PyTorch-CPP
+- https://gist.github.com/Con-Mi/4d92af62adb784a5353ff7cf19d6d099
+- https://lernapparat.de/pytorch-traceable-differentiable/
+- http://lernapparat.de/static/artikel/pytorch-jit-android/thomas_viehmann.pytorch_jit_android_2018-12-11.pdf
+
+
