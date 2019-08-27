@@ -16,7 +16,7 @@ The DarkTorch service is a C++ application running a HTTP server with a REST API
 ## Performance (In progress):
 
 The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
-
+![gpu](assets/gpu.jpg)
 
 <table><tbody>
     <th valign="bottom">Architecture</th>
