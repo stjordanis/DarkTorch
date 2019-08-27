@@ -23,6 +23,8 @@ The inference speed is benchmarked on a single NVIDIA Tesla P-100 GPU.
     <th valign="bottom">Threads</th>
     <th valign="bottom">Batch Size</th>    
     <th valign="bottom">Inference Speed(FPS)</th>
+    <th valign="bottom">Checkpoint</th>
+    
     <tr>
         <td rowspan="1">ResNet9 (C++)
          https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
