@@ -6,11 +6,11 @@ Above all, this project is a step by step tutorial for building production grade
 # What is it all about? 
 There is no better way of depicting the usefulness of DarkTorch by viewing several demos: 
 - A C++ demo of running inference on a traced PyTorch Resnet34 CNN model using a tqdm like callback. 
-![resnet34](resnet34.gif)
+![resnet34](assets/resnet34.gif)
 
 
 # Introduction
-![darktorch logo](darktorch-logo.jpg)
+![darktorch logo](assets/darktorch-logo.jpg)
 
 This repository implements a low-latency deep learning inference LIBRARY and server using pytorch C++ frontend. 
 The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
