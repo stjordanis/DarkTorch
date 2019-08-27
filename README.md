@@ -1,8 +1,11 @@
 # DarkTorch (Work In Progress)
-A low-latency deep learning inference server using pytorch C++ frontend. DarkTorch is written in C++11. Above all, this projects is a step by step tutorial for building production grade AI systems in Libtorch / C++. 
+A low-latency deep learning inference server using pytorch C++ frontend. DarkTorch is written in C++11. Above all, this project is a step by step tutorial for building production grade AI systems in Libtorch / C++. 
 
-(A demo of running inference on a PyTorch Resnet34 CNN model using a tqdm like callback)
+# What is it all about? 
+There is no better way of depicting the usefulness of DarkTorch by viewing several demos: 
+- A C++ demo of running inference on a traced PyTorch Resnet34 CNN model using a tqdm like callback. 
 ![resnet34](resnet34.gif)
+
 
 # Introduction
 ![darktorch logo](darktorch-logo.jpg)
@@ -76,9 +79,8 @@ set(CXX_RELEASE_FLAGS = -O3 -march=native)
 # Building
 
 ## Prerequisites
-- A Kepler or Maxwell NVIDIA GPU with at least 2 GB of memory.
-- A Linux system with recent NVIDIA drivers (recommended: 415).
-- Install the latest version of [Docker](https://docs.docker.com/linux/step_one/).
+- A Kepler or Maxwell NVIDIA GPU with at least **8 GB of memory**.
+- A Linux host system with recent NVIDIA drivers (**recommended: 415**).
 - Install [nvidia-docker2](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(version-2.0)).
 
 ## Build command
@@ -93,7 +95,7 @@ sudo docker build -t  cuda10-trt cuda10-trt
 ```bash
 sudo nvidia-docker run -it --shm-size=4g --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -v /tmp/.X11-unix:/tmp/.X11-unix:rw -p 8097:8097  -p 3122:22 -p 7842:7842 -p 8787:8787 -p 8786:8786 -p 8788:8788 -p 8888:8888 -p 5000:5000 -v ~/dev/:/root/sharedfolder -v ~/dev/.torch/models/:/root/.cache/torch/checkpoints/ cuda10-trt  bash
 ```
-We assume that the PyTorch models are mapped externally to docker via the `-v` command and reside here: `~/dev/.torch/models/`. You can ammend that to reflect teh settings in your environment. 
+We assume that the PyTorch models are *mapped externally* to docker via the `-v` command and reside here: `~/dev/.torch/models/`. You can ammend that path to reflect the settings in your environment. 
 
 ## Starting the server
 Execute the following command and wait a few seconds for the initialization of the classifiers:
@@ -167,7 +169,7 @@ If you find the code or trained models useful, please consider citing:
 }
 ```
 
-#References 
+# References 
 - https://www.jianshu.com/p/6fe9214431c6
 - https://github.com/lsrock1/maskrcnn_benchmark.cpp
 - https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Training-BaiduNet9
