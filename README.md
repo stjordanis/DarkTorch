@@ -34,6 +34,13 @@ The DarkTorch service is a C++ application running a HTTP server with a REST API
         <td rowspan="1">Yolo-v3 (C++)
          https://github.com/walktree/libtorch-yolov3</td><td>1</td><td>1</td><td></td>        
  </tr>  
+ 
+ <tr>
+        <td rowspan="1">Mask-RCNN (C++)
+         https://github.com/lsrock1/maskrcnn_benchmark.cpp</td><td>1</td><td>1</td><td></td>        
+ </tr>  
+    
+    
     
 </tbody></table>
 
@@ -185,5 +192,6 @@ If you find the code or trained models useful, please consider citing:
 - https://gist.github.com/Con-Mi/4d92af62adb784a5353ff7cf19d6d099
 - https://lernapparat.de/pytorch-traceable-differentiable/
 - http://lernapparat.de/static/artikel/pytorch-jit-android/thomas_viehmann.pytorch_jit_android_2018-12-11.pdf
+- https://github.com/walktree/libtorch-yolov3
 
 
