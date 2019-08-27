@@ -13,6 +13,31 @@ There is no better way of depicting the usefulness of DarkTorch by viewing sever
 This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
 The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
 
+## Performance (In progress):
+
+<table><tbody>
+    <th valign="bottom">Architecture</th>
+    <th valign="bottom">Threads</th>
+    <th valign="bottom">Batch Size</th>    
+    <th valign="bottom">Inference Speed(fps)</th>
+    <tr>
+        <td rowspan="1">ResNet9 (C++)
+         https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
+    </tr>  
+ 
+ <tr>
+        <td rowspan="1">BaiduNet8 (C++) 
+         https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8</td><td>1</td><td>1</td><td></td>        
+    </tr>  
+    
+  <tr>
+        <td rowspan="1">Yolo-v3 (C++)
+         https://github.com/walktree/libtorch-yolov3</td><td>1</td><td>1</td><td></td>        
+ </tr>  
+    
+</tbody></table>
+
+The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
 **Table of contents**
 
   * [Technologies](#Technologies)  
@@ -111,34 +136,9 @@ Execute the following command and wait a few seconds for the initialization of t
 
 - ResNet9
 - ResNet18
-- ResNet50
-- ResNet101
+- BaiduNet8
+- Yolo-v3 (C++)
 
-## Performance:
-
-<table><tbody>
-    <th valign="bottom">Architecture</th>
-    <th valign="bottom">Threads</th>
-    <th valign="bottom">Batch Size</th>    
-    <th valign="bottom">Inference Speed(fps)</th>
-    <tr>
-        <td rowspan="1">ResNet9 (C++)
-         https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
-    </tr>  
- 
- <tr>
-        <td rowspan="1">BaiduNet8 (C++) 
-         https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8</td><td>1</td><td>1</td><td></td>        
-    </tr>  
-    
-  <tr>
-        <td rowspan="1">Yolo-v3 (C++)
-         https://github.com/walktree/libtorch-yolov3</td><td>1</td><td>1</td><td></td>        
- </tr>  
-    
-</tbody></table>
-
-The inference speed is benchmarked on a single NVIDIA Pascal Titan Xp GPU, without visualization.
 
 ## Environment
 The code is developed under the following configurations.
