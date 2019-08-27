@@ -84,7 +84,6 @@ RUN jupyter nbextension enable --py widgetsnbextension
 RUN jupyter notebook --generate-config
 COPY jupyter_notebook_config.py /root/.jupyter/
 COPY run_jupyter.sh /root/
-COPY interns.sh /root/
 
 WORKDIR "/root/"
 RUN chmod +x run_jupyter.sh
@@ -165,7 +164,7 @@ RUN pip install sacredboard visdom-observer pytorch-utils git+https://github.com
 
 EXPOSE 6006 3838 8787 8888 8786 9786 8788 5432 8000 7800 9999 7842 22 3122 7847 7848 8097 27017
 
-# RUN conda install xeus-cling -c QuantStack -c conda-forge
+RUN conda install xeus-cling -c QuantStack -c conda-forge
 
 # Version tag
 ENV DEEPONCOLOGY_IMAGE_TAG 19.08.1
