@@ -1,5 +1,7 @@
 # DarkTorch (Work In Progress)
-A low-latency deep learning inference server using pytorch C++ frontend. DarkTorch is written in C++11. Above all, this project is a step by step tutorial for building production grade AI systems in Libtorch / C++. 
+A low-latency deep learning inference server using pytorch C++ frontend. DarkTorch is written in C++11 and ** using the [PyTorch C++ frontend](https://pytorch.org/cppdocs/frontend.html).** 
+
+Above all, this project is a step by step tutorial for building production grade AI systems in Libtorch / C++. 
 
 # What is it all about? 
 There is no better way of depicting the usefulness of DarkTorch by viewing several demos: 
