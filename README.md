@@ -10,7 +10,7 @@ There is no better way of depicting the usefulness of DarkTorch by viewing sever
 # Introduction
 ![darktorch logo](darktorch-logo.jpg)
 
-This repository implements a low-latency deep learning inference server using pytorch C++ frontend & NVIDIA GPUs. 
+This repository implements a low-latency deep learning inference LIBRARY and server using pytorch C++ frontend. 
 The DarkTorch service is a C++ application running a HTTP server with a REST API. This service is able to run inference on multiple deep learning models in parallel on all the available GPU processors to obtain the results in the shortest time possible. 
 
 ## Performance (In progress):
@@ -19,7 +19,7 @@ The DarkTorch service is a C++ application running a HTTP server with a REST API
     <th valign="bottom">Architecture</th>
     <th valign="bottom">Threads</th>
     <th valign="bottom">Batch Size</th>    
-    <th valign="bottom">Inference Speed(fps)</th>
+    <th valign="bottom">Inference Speed(FPS)</th>
     <tr>
         <td rowspan="1">ResNet9 (C++)
          https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
