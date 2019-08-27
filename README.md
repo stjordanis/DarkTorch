@@ -122,14 +122,19 @@ Execute the following command and wait a few seconds for the initialization of t
     <th valign="bottom">Batch Size</th>    
     <th valign="bottom">Inference Speed(fps)</th>
     <tr>
-        <td rowspan="1">ResNet9 
+        <td rowspan="1">ResNet9 (C++)
          https://github.com/lambdal/cifar10-fast</td><td>1</td><td>1</td><td></td>        
     </tr>  
  
  <tr>
-        <td rowspan="1">BaiduNet8 
+        <td rowspan="1">BaiduNet8 (C++) 
          https://github.com/BAIDU-USA-GAIT-LEOPARD/CIFAR10-Inference-BaiduNet8</td><td>1</td><td>1</td><td></td>        
     </tr>  
+    
+  <tr>
+        <td rowspan="1">Yolo-v3 (C++)
+         https://github.com/walktree/libtorch-yolov3</td><td>1</td><td>1</td><td></td>        
+ </tr>  
     
 </tbody></table>
 
