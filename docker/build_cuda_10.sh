@@ -1,2 +1,1 @@
-#!/usr/bin/env bash
-sudo docker build -t  cuda10-trt cuda-10
+sudo docker build -t cuda10 cuda10
