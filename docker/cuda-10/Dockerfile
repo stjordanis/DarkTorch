@@ -2,7 +2,7 @@
 # FROM nvcr.io/nvidia/pytorch:19.07-py3
 # FROM nvcr.io/nvidia/pytorch:18.12-py3
 FROM nvcr.io/nvidia/pytorch:19.02-py3
-
+# https://github.com/freemanix/torchbuilder/blob/master/Dockerfile
 
 RUN apt-get update &&\
     apt-get install -y sudo git bash
@@ -20,10 +20,15 @@ RUN apt-get update \
 
 RUN ls -la /opt/conda/lib
 
-RUN find / -name conda
+# Install CMake 3.14
+
+ARG CMAKE=cmake-3.14.1.tar.gz
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.1/${CMAKE}
+RUN tar xvzf ${CMAKE} && cd cmake* && ./bootstrap --parallel=$(nproc)
+RUN cd cmake* && make -j$(nproc) && make install
+
 
 RUN conda install -c anaconda python=3.6
-
 RUN find / -name conda
 
 # PyTorch
@@ -51,7 +56,6 @@ WORKDIR "/root/"
 RUN conda uninstall -y libtiff
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/python3.6
-# ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
 
 WORKDIR "/root/"
 # ABI=0 is really important
@@ -63,10 +67,6 @@ RUN conda install -c conda-forge ffmpeg x264
 RUN conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
 RUN conda install -c conda-forge opencv
 
-# RUN cd /root/opencv
-# WORKDIR "/root/opencv/"
-
-# # -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0
 
 WORKDIR "/root/"
 # Jupyter
@@ -83,10 +83,12 @@ RUN python3 -m ipykernel.kernelspec
 RUN jupyter nbextension enable --py widgetsnbextension
 RUN jupyter notebook --generate-config
 COPY jupyter_notebook_config.py /root/.jupyter/
-COPY run_jupyter.sh /root/
+COPY ../run_jupyter.sh /root/
+COPY interns.sh /root/
 
 WORKDIR "/root/"
 RUN chmod +x run_jupyter.sh
+RUN chmod +x interns.sh
 
 # Visualization
 RUN pip install -U graphviz hiddenlayer nvidia-ml-py3 seaborn
@@ -132,9 +134,9 @@ RUN apt-get update \
     && grep "^X11UseLocalhost" /etc/ssh/sshd_config || echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 
-RUN echo "ssh-rsa == shlomo" >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArnpCnkWhoQkibcsZpoBgPhObtiEZC4CFRO8UcymP4xCRb5gd2J6053jmtAbdDtDMrARixl9b1SShmWkwlZ681IiTFIdCApqSOuUDC55fKmncSKreX7kRmBFsCgHk2fXXsYxQJbyEk8mWHAN+ECqUr0/NHYTPfXOR0YdxCxVAyxJTCeOdl97D0IRrABTGcpTlLnaQMcLZQsnaHXbGWJW1ljWkmy2WzeYfTiceYqsq252tJadSDF6Mp7g50GnQRdWaedXkNZzpq9d0JBYdIh98wjWcQKaV4FTVdItaUVMKovFdgnhyI84T3LWlUxQ1uv2FglklPb0o4mTrWg7GkHCObQ== shlomo" >> /root/.ssh/authorized_keys
 
-RUN echo "ssh-rsa == root" >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwrzCb3xeXlyFvVL5W6NeJw4WfyI3MwbxrlXIz+tVXPOSRX4cpht/R3gMFOpa1KTvJUM089/S92DavIYWETInIQlrdgDrVtxgvt0bsoWPq0cW/6Sj7ntazSctP0fQ1UeKrkUkj/Ow0iTZGiwuZosapARFb9cjO5XXgcYDX1orYRCBaA4p0/7rLLWwvRp65id4caW+CvDmKDvJulUH34ZPlRcU37q37DIHEeyVtfVCmVEHmT/mERpcxbSnuEi3v3ks2bzVqNFm/snba+6vvy4mKW3MG/6jYTmHcbBt3YAXNOtIDNe2qogtlCPjdiX26mcK0/d/3qEi3fM6rxZplN9eBw== root" >> /root/.ssh/authorized_keys
 
 RUN echo 'ldconfig'  >> /root/.bashrc
 # RUN source /root/.bashrc
@@ -147,8 +149,12 @@ RUN pip install path.py
 WORKDIR /root/
 
 # install TorchLib C++ 
-RUN wget https://download.pytorch.org/libtorch/cu100/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
+RUN wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
+#RUN unzip libtorch-shared-with-deps-latest.zip
+#RUN mv /root/libtorch /root/libtorch_cpu 
+#RUN rm libtorch-shared-with-deps-latest.zip
 #COPY  libtorch-cxx11-abi-shared-with-deps-1.2.0.zip /root/
+
 RUN unzip /root/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip
 #RUN mv /root/libtorch /root/libtorch_gpu 
 #RUN rm libtorch-shared-with-deps-latest.zip
