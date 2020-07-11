@@ -12,8 +12,8 @@ RUN apt-get update &&\
 
 
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
-ENV PYTHONPATH=/opt/conda/lib/python3.6/site-packages/:$PYTHONPATH
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.6
+ENV PYTHONPATH=/opt/conda/lib/python3.7/site-packages/:$PYTHONPATH
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.7
 
 RUN apt-get update \
  && apt-get install -y \
@@ -31,7 +31,7 @@ RUN ls -la /opt/conda/lib
 #RUN cd cmake* && make -j$(nproc) && make install
 
 
-RUN conda install -c anaconda python=3.6
+RUN conda install -c anaconda python=3.7.4
 RUN find / -name conda
 
 # PyTorch
@@ -68,7 +68,7 @@ RUN conda config --add channels conda-forge
 # RUN conda install opencv
 RUN conda install -c conda-forge ffmpeg x264
 RUN conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
-RUN conda install -c conda-forge opencv
+RUN conda install -c conda-forge opencv visdom 
 
 
 WORKDIR "/root/"
@@ -164,9 +164,9 @@ RUN apt-get -y install openmpi-bin
 RUN apt-get -y install libblacs-mpi-dev
 RUN pip install horovod
 RUN conda install -c anaconda nccl
-RUN pip install starlette aiofiles uvicorn aiohttp librosa
+RUN pip install starlette aiofiles uvicorn aiohttp librosa  
 
-RUN echo "ssh-rsa " >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa" >> /root/.ssh/authorized_keys
 
 RUN echo 'ldconfig'  >> /root/.bashrc
 # RUN source /root/.bashrc
@@ -174,5 +174,18 @@ RUN echo 'ldconfig'  >> /root/.bashrc
 RUN echo "export PATH=$PATH" >> /etc/profile && \
     echo "ldconfig" >> /etc/profile
 
+# TRT 7
+#ENV os=ubuntu1804
+#RUN wget https://developer.download.nvidia.com/compute/machine-learning/repos/${os}/x86_64/nvidia-machine-learning-repo-${os}_1.0.0-1_amd64.deb -P /root/TensorRT/.
+#RUN dpkg -i /root/TensorRT/nvidia-machine-learning-repo-${os}_1.0.0-1_amd64.deb
+#RUN apt-get update
+#RUN apt-get install -y libnvinfer7 libnvonnxparsers7 libnvparsers7 libnvinfer-plugin7
+#RUN apt-get install -y libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
+#RUN apt-get install -y python-libnvinfer-dev
+
 
 EXPOSE 6006 3838 8787 8888 8786 9786 8788 5432 8000 7800 9999 7842 22 3122 7847 7848 8097 27017
+RUN conda install notebook ipykernel
+RUN ipython kernel install --user
+
+pip install jupytext
