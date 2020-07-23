@@ -1,0 +1,11 @@
+# Install mmdetection
+ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0+PTX"
+ENV TORCH_NVCC_FLAGS="-Xfatbin -compress-all"
+ENV CMAKE_PREFIX_PATH="$(dirname $(which conda))/../"
+ENV FORCE_CUDA="1"
+RUN git clone https://github.com/open-mmlab/mmdetection /tmp/mmdetection \
+    && cd /tmp/mmdetection \
+    && git checkout 38dfa875c048207fd46b8cd2b7ccafd5239b4a4e \
+    && pip install --no-cache-dir "git+https://github.com/open-mmlab/cocoapi.git#subdirectory=pycocotools" \
+    && pip install --no-cache-dir /tmp/mmdetection \
+    && rm -r /tmp/mmdetection
