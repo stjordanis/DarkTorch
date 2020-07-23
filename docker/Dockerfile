@@ -3,7 +3,7 @@
 # FROM nvcr.io/nvidia/pytorch:18.12-py3
 #FROM nvcr.io/nvidia/pytorch:19.04-py3
 FROM nvcr.io/nvidia/pytorch:20.03-py3
-#FROM nvcr.io/nvidia/pytorch:19.10-py3
+#FROM nvcr.io/nvidia/pytorch:19.03-py3
 
 # https://github.com/freemanix/torchbuilder/blob/master/Dockerfile
 
@@ -11,7 +11,7 @@ RUN apt-get update &&\
     apt-get install -y sudo git bash
 
 
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
+ENV PATH /opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
 ENV PYTHONPATH=/opt/conda/lib/python3.7/site-packages/:$PYTHONPATH
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/lib/:/opt/conda/lib/python3.7
 
@@ -31,7 +31,11 @@ RUN ls -la /opt/conda/lib
 #RUN cd cmake* && make -j$(nproc) && make install
 
 
-RUN conda install -c anaconda python=3.7.4
+RUN conda install -c anaconda python=3.7
+#RUN conda update -n base -c defaults conda
+#RUN conda install cudatoolkit=10.1
+RUN conda update -n base -c defaults conda
+RUN conda install cudatoolkit=10.1
 RUN find / -name conda
 
 # PyTorch
@@ -166,7 +170,20 @@ RUN pip install horovod
 RUN conda install -c anaconda nccl
 RUN pip install starlette aiofiles uvicorn aiohttp librosa  
 
-RUN echo "ssh-rsa" >> /root/.ssh/authorized_keys
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArnpCnkWhoQkibcsZpoBgPhObtiEZC4CFRO8UcymP4xCRb5gd2J6053jmtAbdDtDMrARixl9b1SShmWkwlZ681IiTFIdCApqSOuUDC55fKmncSKreX7kRmBFsCgHk2fXXsYxQJbyEk8mWHAN+ECqUr0/NHYTPfXOR0YdxCxVAyxJTCeOdl97D0IRrABTGcpTlLnaQMcLZQsnaHXbGWJW1ljWkmy2WzeYfTiceYqsq252tJadSDF6Mp7g50GnQRdWaedXkNZzpq9d0JBYdIh98wjWcQKaV4FTVdItaUVMKovFdgnhyI84T3LWlUxQ1uv2FglklPb0o4mTrWg7GkHCObQ== shlomo" >> /root/.ssh/authorized_keys
+
+
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwrzCb3xeXlyFvVL5W6NeJw4WfyI3MwbxrlXIz+tVXPOSRX4cpht/R3gMFOpa1KTvJUM089/S92DavIYWETInIQlrdgDrVtxgvt0bsoWPq0cW/6Sj7ntazSctP0fQ1UeKrkUkj/Ow0iTZGiwuZosapARFb9cjO5XXgcYDX1orYRCBaA4p0/7rLLWwvRp65id4caW+CvDmKDvJulUH34ZPlRcU37q37DIHEeyVtfVCmVEHmT/mERpcxbSnuEi3v3ks2bzVqNFm/snba+6vvy4mKW3MG/6jYTmHcbBt3YAXNOtIDNe2qogtlCPjdiX26mcK0/d/3qEi3fM6rxZplN9eBw== root" >> /root/.ssh/authorized_keys 
+
+
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQBbY9qk5dinMegPCuybq8OGHVjseghcwd2/2reeQRofcAW7MfgiNeLx9JwI5ESkAqJk19YSyvzr1/vO8cgJ0YVwhyqWl7gQAbAClvyhV6VfUvLADd42FqkW2vPJNcNHHdNPAt6q6XD2lF+n5UH+5vGdlPYNRJeGeKAPAcQuCrouEf1e47+blerJTKH5iN8vCWo4+M6snOlMclLHy9DouNXmGZ4IQj+eXUgPnqrnL+JtHFhdK+ldt223VL8oZCxjh14mg5fPnJCg3weeQsfa3u7V2GSLGeLMIWLBiL9S+GwjuZMO5elhh/CiG1k3BsfITOk+A8ThwhVI2olKOSLuLAlH== shlomo" >> /root/.ssh/authorized_keys 
+
+# Added by Google
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQBbY9qk5dinMegPCuybq8OGHVjseghcwd2/2reeQRofcAW7MfgiNeLx9JwI5ESkAqJk19YSyvzr1/vO8cgJ0YVwhyqWl7gQAbAClvyhV6VfUvLADd42FqkW2vPJNcNHHdNPAt6q6XD2lF+n5UH+5vGdlPYNRJeGeKAPAcQuCrouEf1e47+blerJTKH5iN8vCWo4+M6snOlMclLHy9DouNXmGZ4IQj+eXUgPnqrnL+JtHFhdK+ldt223VL8oZCxjh14mg5fPnJCg3weeQsfa3u7V2GSLGeLMIWLBiL9S+GwjuZMO5elhh/CiG1k3BsfITOk+A8ThwhVI2olKOSLuLAlH shlomo " >> /root/.ssh/authorized_keys 
+
+# Added by Google
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAjxt3OjKGBg0ZG8ydrp6LKIO5LztdJAY+xMGxjSm82DWFLmS+nsqgryMhuGT6SoNyrOWhfRDAvMAq7UiisvOAdnTJO51LHXaXcTN0g0r86GKh2QaY5f+oSuHz4Ruc0gPm/xF4cJ3/k2d+jUCduIfJkHQx5M7IL8id9WwOoZo/7cC+7ff26MN8PY11yyEvonIHI7KjH7UEiIGJGcsEqsmx3W4c+zOSBb1nw97VV7rmsTSKU2ko7nQoK4ECH8f8EHiyryvWHw8esCjETTDtf1ANbfM3CxduRXVggq/krrC+nuH4P9MS184M0PZSQZqmbsBD0rdpZIQdgwsSO7flWGgl5w== shlomo " >> /root/.ssh/authorized_keys 
+
 
 RUN echo 'ldconfig'  >> /root/.bashrc
 # RUN source /root/.bashrc
@@ -188,4 +205,14 @@ EXPOSE 6006 3838 8787 8888 8786 9786 8788 5432 8000 7800 9999 7842 22 3122 7847 
 RUN conda install notebook ipykernel
 RUN ipython kernel install --user
 
-pip install jupytext
+#mmdet
+#RUN conda install -y cython==0.28.5
+#WORKDIR /root/
+#RUN git clone https://github.com/WXinlong/SOLO.git
+#WORKDIR /root/SOLO
+#RUN pip install -r /root/SOLO/requirements/build.txt
+#RUN pip install "git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI"
+#RUN pip install -v -e .
+#RUN pip install --no-cache-dir -v -e .
+
+RUN pip install jupytext
